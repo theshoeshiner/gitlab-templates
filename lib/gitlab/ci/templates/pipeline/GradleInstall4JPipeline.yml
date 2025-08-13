@@ -49,7 +49,9 @@ before_script:
         echo "EJT_LICENSE_ENCRYPTION_KEY_BASE64 is empty; nothing written to the ejt.ks file."
       fi
     # Only publish when building develop or a release branch
-    - if [[ $CI_COMMIT_BRANCH =~ $DEV_OR_RELEASE_REGEX ]]; then PUBLISH="publish"; else PUBLISH="-x publish"; fi
+    # TODO REMOVE replaced this line for testing
+    #- if [[ $CI_COMMIT_BRANCH =~ $DEV_OR_RELEASE_REGEX ]]; then PUBLISH="publish"; else PUBLISH="-x publish"; fi
+    - PUBLISH="publish" # TODO REMOVE
     - echo "Build with SNAPSHOT_FLAGS='$SNAPSHOT_FLAGS' JDK_SELECTOR='$JDK_SELECTOR' PUBLISH='$PUBLISH' using flags '$GRADLE_FLAGS'"
     - ./gradlew $GRADLE_FLAGS $SNAPSHOT_FLAGS $JDK_SELECTOR -Pi4jLicenseKey=${I4J_LICENSE_KEY} $INSTALLER_GRADLE_COMMANDS $PUBLISH -Dorg.gradle.internal.http.connectionTimeout=$HTTP_CONNECTION_TIMEOUT_MS -Dorg.gradle.internal.http.socketTimeout=$HTTP_SOCKET_TIMEOUT_MS
   variables:
